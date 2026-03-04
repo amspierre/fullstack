@@ -1,17 +1,45 @@
 const form = document.getElementById("formCadastro");
+const mensagem = document.getElementById("mensagem");
 
-form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+form.addEventListener("submit", async function (event) {
 
-    const nome = document.getElementById("nome").value;
+  event.preventDefault();
 
-    await fetch('/api/usuarios', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ nome })
+  const nome = document.getElementById("nome").value;
+  const idade = document.getElementById("idade").value;
+
+  const usuario = {
+    nome,
+    idade: Number(idade)
+  };
+
+  try {
+
+    const resposta = await fetch("/api/usuarios", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(usuario)
     });
 
-    alert("Usuário cadastrado!");
+    if (!resposta.ok) {
+      throw new Error("Erro ao cadastrar usuário");
+    }
+
+    const dados = await resposta.json();
+
+    mensagem.textContent = `Usuário ${dados.nome} cadastrado com sucesso!`;
+    mensagem.style.color = "green";
+
+    form.reset();
+
+  } catch (erro) {
+
+    mensagem.textContent = "Erro ao cadastrar usuário.";
+    mensagem.style.color = "red";
+
+    console.error(erro);
+  }
+
 });
