@@ -11,6 +11,7 @@ async function listarUsuarios() {
 }
 
 async function buscarUsuarioPorId(id) {
+
     const resultado = await pool.query(
         "SELECT * FROM usuarios WHERE id = $1",
         [id]
@@ -62,18 +63,19 @@ async function deletarUsuario(id) {
         "DELETE FROM usuarios WHERE id = $1",
         [id]
     );
-0
-    return resultado.rowCount > 0;
+
+    return resultado.rowCount > 0; // CORRIGIDO: havia um "0" solto nessa linha
 
 }
 
-async function listarTotal(){
+async function listarTotal() {
 
     const resultado = await pool.query(
         "SELECT COUNT(*) FROM usuarios"
     );
 
     return Number(resultado.rows[0].count);
+
 }
 
 module.exports = {

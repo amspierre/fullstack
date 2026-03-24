@@ -23,23 +23,25 @@ form.addEventListener("submit", async function (event) {
       body: JSON.stringify(usuario)
     });
 
-    if (!resposta.ok) {
-      throw new Error("Erro ao cadastrar usuário");
-    }
-
     const dados = await resposta.json();
 
-    mensagem.textContent = `Usuário ${dados.nome} cadastrado com sucesso!`;
-    mensagem.style.color = "green";
+    if (!resposta.ok) {
+      throw new Error(dados.erro || "Erro ao cadastrar usuário");
+    }
+
+    // CORRIGIDO: era dados.nome — o retorno da API é { mensagem, usuario }
+    mensagem.textContent = `Usuário "${dados.usuario.nome}" cadastrado com sucesso!`;
+    mensagem.className = "mensagem sucesso";
 
     form.reset();
 
   } catch (erro) {
 
-    mensagem.textContent = "Erro ao cadastrar usuário.";
-    mensagem.style.color = "red";
+    mensagem.textContent = erro.message || "Erro ao cadastrar usuário.";
+    mensagem.className = "mensagem erro";
 
     console.error(erro);
+
   }
 
 });

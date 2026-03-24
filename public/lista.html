@@ -1,21 +1,31 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Lista de Usuários</title>
+  <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
-  <a href="cadastro.html"> &lt;--- Voltar para o cadastro</a>
+  <div class="container">
+    <header class="site-header">
+      <a href="/" class="back-link">← Voltar</a>
+      <h1 class="logo">UserHub</h1>
+    </header>
 
-  <h1>Lista de Usuários</h1>
+    <main class="list-wrapper">
+      <div class="list-header">
+        <h2 class="page-title">Usuários</h2>
+        <button id="btnAtualizar" class="btn-secondary">↻ Atualizar</button>
+      </div>
 
-  <button id="btnAtualizar">Atualizar Lista</button>
+      <p id="total" class="total-badge"></p>
+      <p id="mensagem" class="mensagem"></p>
 
-  <ul id="lista"></ul>
+      <ul id="lista" class="usuario-lista"></ul>
+    </main>
+  </div>
 
-  <p id="mensagem"></p>
-  <p id="total">Total de usuários: </p>
-
-  <script src="js/lista.js"></script>
+  <script src="/js/lista.js"></script>
 </body>
 </html>

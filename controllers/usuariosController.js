@@ -2,8 +2,8 @@ const usuariosService = require("../services/usuariosService");
 
 async function listarUsuarios(req, res) {
 
-    const pool = require("../database/db");
-
+    // CORRIGIDO: removido "const pool = require('../database/db')" que estava aqui
+    // desnecessário — o pool já é usado dentro do service
     const usuarios = await usuariosService.listarUsuarios();
 
     res.json(usuarios);
@@ -83,13 +83,13 @@ async function deletarUsuario(req, res) {
 }
 
 async function listarTotal(req, res) {
-    
+
     const total = await usuariosService.listarTotal();
-    
+
     res.json({
         total
     });
-    
+
 }
 
 module.exports = {
